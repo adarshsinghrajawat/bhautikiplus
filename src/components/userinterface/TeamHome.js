@@ -5,8 +5,14 @@ import SubSubcategoryComponent from "./SubSubcategoryComponent"
 import { useLocation } from "react-router-dom"
 import { postData } from "../services/ServerServices"
 import { useEffect,useState } from "react"
+import { getData } from "../services/ServerServices"
 export default function TeamHome(props)
+
+
 { 
+
+
+    
 //       var location=useLocation()
 //     console.log('LLOOCCAATTTION:',location)
 //     const [productList,setProductList]=useState('')

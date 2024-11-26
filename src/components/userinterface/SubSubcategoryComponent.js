@@ -3,16 +3,18 @@ import dumdarteachers from "../../../src/assets/dumdarteachers.png"
 import { AppBar } from "@mui/material"
 import App from "../../App"
 import Paper from "@mui/material/Paper"
+import { useEffect,useState } from "react"
+import { getData } from "../services/ServerServices"
 export default function SubSubcategoryComponent(props)
 {
-    var items=[{id:'1',college:'B.Tech, NIT Bhopal (Gold Medalist)',post:'Director, IIT Division & HOD,Chemistry',subsubcategoryname:'Mentored AIR 31, AIR 39, AIR 110 Teaching experience of 13 Years',name:'Er. Yogesh Pathak',icon:'yogeshsir.png'},
-    {id:'2',college:'B.Tech. IIT Delhi (AIR 175)',post:'HOD, Physics',subsubcategoryname:"Mentored AIR 3, AIR 18, AIR 220 Teaching experience of 10 Years",name:'Er. Deepak Bhardwaj',icon:'deepaksir.png'},
-    {id:'3',college:'B.Tech. IIT Dhanbad',post:'HOD, Mathematics',subsubcategoryname:'Mentored AIR 9, AIR 59 Teaching experience of 15 Years',name:'Er. Sandeep Agrawal',icon:'sandeepsir.png'},
-    {id:'4',college:'B.Tech. NIT Bhopal',post:'Founder Bhautiki Plus',subsubcategoryname:'Senior Faculty PhysicsTeaching experience of 14 years',name:'Er. Ritesh Goel',icon:'riteshsir.png'},
-    {id:'4',college:'B.Tech. IIT Roorkee',subsubcategoryname:'Senior Faculty, Mathematics Teaching experience of 11 Years',name:'Er. Nimish Saraf',icon:'nimishsir.png'},
-    {id:'4',college:'B.Tech. NIT Bhopal',subsubcategoryname:'Senior Faculty, Chemistry Teaching experience of 8 Years',name:'Er. Ankit Chouksey',icon:'ankitsir.png'},
-    {id:'4',college:'B.Tech. NIT Bhopal',subsubcategoryname:'Senior Faculty, Physics Teaching experience of 4 Years',name:'Er. Sudhanshu Joshi',icon:'sudhanshusir.png'},
-]
+//     var items=[{id:'1',college:'B.Tech, NIT Bhopal (Gold Medalist)',post:'Director, IIT Division & HOD,Chemistry',subsubcategoryname:'Mentored AIR 31, AIR 39, AIR 110 Teaching experience of 13 Years',name:'Er. Yogesh Pathak',icon:'yogeshsir.png'},
+//     {id:'2',college:'B.Tech. IIT Delhi (AIR 175)',post:'HOD, Physics',subsubcategoryname:"Mentored AIR 3, AIR 18, AIR 220 Teaching experience of 10 Years",name:'Er. Deepak Bhardwaj',icon:'deepaksir.png'},
+//     {id:'3',college:'B.Tech. IIT Dhanbad',post:'HOD, Mathematics',subsubcategoryname:'Mentored AIR 9, AIR 59 Teaching experience of 15 Years',name:'Er. Sandeep Agrawal',icon:'sandeepsir.png'},
+//     {id:'4',college:'B.Tech. NIT Bhopal',post:'Founder Bhautiki Plus',subsubcategoryname:'Senior Faculty PhysicsTeaching experience of 14 years',name:'Er. Ritesh Goel',icon:'riteshsir.png'},
+//     {id:'4',college:'B.Tech. IIT Roorkee',subsubcategoryname:'Senior Faculty, Mathematics Teaching experience of 11 Years',name:'Er. Nimish Saraf',icon:'nimishsir.png'},
+//     {id:'4',college:'B.Tech. NIT Bhopal',subsubcategoryname:'Senior Faculty, Chemistry Teaching experience of 8 Years',name:'Er. Ankit Chouksey',icon:'ankitsir.png'},
+//     {id:'4',college:'B.Tech. NIT Bhopal',subsubcategoryname:'Senior Faculty, Physics Teaching experience of 4 Years',name:'Er. Sudhanshu Joshi',icon:'sudhanshusir.png'},
+// ]
    
 var item=[{id:'1',subsubcategoryname:'Teaching experience of 26 Years',name:'Er. Sanjeev Agnihotri' ,post:'HOD, Chemistry',icon:'sanjeevsir.png'},
     {id:'2',subsubcategoryname:"Teaching experience of 22 Years",name:'Mr. Rajeev Gupta',post:'Senior Faculty, Chemistry',icon:'rajeevsir.png'},
@@ -24,27 +26,39 @@ var item=[{id:'1',subsubcategoryname:'Teaching experience of 26 Years',name:'Er.
     {id:'4',subsubcategoryname:'Teaching experience of 8 Years',name:'Mr. Anindya Paul',post:'Senior Faculty, Zoology',icon:'anindyasir.png'},
 ]
     //var items=props.data
+    const [teamList,setTeamList]=useState([])
+
+
+    const fetchTeam = async () => {
+        var result = await getData('category/fetch_team')
+        
+        setTeamList(result.data)
+      }
     
+      useEffect(function () {
+        fetchTeam()
+      }, []);
+
     const showAllItems=()=>{
-        return items.map((item)=>{
+        return teamList.map((item)=>{
             return <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', margin: '2px', flexWrap: 'wrap', maxWidth: '400px' }}>
             <div>
-                <img src={`${ServerURL}/images/${item.icon}`} loading="lazy" style={{ width: "100%", height: "60vh",background:'',padding:'10%' }} alt={item.subsubcategoryname} />
+                <img src={`${ServerURL}/images/${item.logo}`} loading="lazy" style={{ width: "100%", height: "70vh",background:'',padding:'10%' }} alt={item.subsubcategoryname} />
             </div>
             
             <div style={{ fontWeight:650,fontSize: 35, letterSpacing: 0.5, textAlign: 'center' ,color:'#1c0d5a',fontFamily:'Josefin Sans',marginTop:'8%'}}>
-                        {item.name
+                        {item.facultyname
                          }
                     </div>
                     <div style={{fontFamily:'Josefin Sans',color:'#636e72', fontSize: 18,fontWeight:600, letterSpacing: 0.5, flexDirection: 'column', textAlign: 'center', marginTop: '4%' }}>
-                {item.college}           
+                {item.collegename}           
             </div>
             <div style={{fontFamily:'Josefin Sans', fontSize: 22, letterSpacing: 0.5,fontWeight:500, flexDirection: 'column', textAlign: 'center', marginTop: '4%' }}>
                 {item.post}
                 
             </div>
             <div style={{fontFamily:'Josefin Sans', fontSize: 20, letterSpacing: 0.5, flexDirection: 'column', textAlign: 'center', marginTop: '10%' }}>
-                {item.subsubcategoryname}
+                {item.description}
                 
             </div>
             

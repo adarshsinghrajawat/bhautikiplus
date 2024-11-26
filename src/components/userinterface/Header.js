@@ -35,9 +35,9 @@ const StyledToolbar = styled(Toolbar)(({  }) => ({
 }));
 
 export default function Header() {
-  //  const navigate=useNavigate()
+    const navigate=useNavigate()
     const [categoryList,setCategoryList]=useState([])
-
+  
 
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
@@ -64,6 +64,14 @@ export default function Header() {
       } else if (event.key === 'Escape') {
         setOpen(false);
       }
+    }
+
+    const handleTeam=()=>{
+      navigate('/teamhome')
+    }
+
+    const handleMainCategory=()=>{
+      navigate('/maincategory')
     }
   
     // return focus to the button when we transitioned from !open -> open
@@ -225,7 +233,7 @@ export default function Header() {
           aria-controls={open ? 'composition-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"
-          onClick={handleToggle}
+          onClick={handleMainCategory}
         >
          <span style={{color:'#fff'}}> About Us</span>
         </Button>
@@ -331,7 +339,7 @@ export default function Header() {
           aria-controls={open ? 'composition-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"
-          onClick={handleClick}
+          onClick={handleTeam}
         >
          <span style={{color:'#fff'}}> Team</span>
         </Button>

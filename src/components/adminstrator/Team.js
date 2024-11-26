@@ -11,10 +11,14 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { useStyles } from "./MaincategoryCss"
 import { postData } from "../services/ServerServices";
 import { useNavigate } from "react-router-dom";
-import { clear } from "@testing-library/user-event/dist/clear";
-export default function MainCategory(props) {
+
+export default function Team(props) {
      var navigate=useNavigate()
-    const [categoryName, setCategoryName] = useState()
+    const [facultyName, setFacultyName] = useState()
+    const [collegeName, setCollegeName] = useState()
+    const [post, setPost] = useState()
+    const [description, setDescription] = useState()
+   
     const [categoryLogo, setCategoryLogo] = useState({ fileName: 'watermark.png', bytes: '' })
     var classes = useStyles()
 
@@ -27,17 +31,23 @@ export default function MainCategory(props) {
         navigate('/displayallmaincategory')
       }
 
+      
+
     const handleClick = async () => {
         var cd = new Date()
         var dd = cd.getFullYear() + "/" + (cd.getMonth() + 1) + "/" + cd.getDate() + " " + cd.getHours() + ":" + cd.getMinutes() + ":" + cd.getSeconds()
 
         var formData = new FormData()
-        formData.append('categoryname', categoryName)
+        formData.append('facultyname', facultyName)
+        formData.append('collegename', collegeName)
+        formData.append('post', post)
+        formData.append('description', description)
+
         formData.append('logo', categoryLogo.bytes)
         formData.append('createdat', new Date())
         formData.append('updateat', new Date())
 
-        var result = await postData('category/submit_category', formData)
+        var result = await postData('category/submit_team', formData)
         if(result)
         {
             Swal.fire({
@@ -60,7 +70,11 @@ export default function MainCategory(props) {
     }
 
     const clearValue=()=>{
-       setCategoryName('')
+    
+       setPost('')
+       setCollegeName('')
+       setFacultyName('')
+       setDescription('')
        setCategoryLogo({fileName: 'watermark.png', bytes: '' })
     }
   
@@ -74,12 +88,21 @@ export default function MainCategory(props) {
                             <img src={logo1} width="150" />
                         </div>
                         <div className={classes.headingStyle}>
-                            Categories
+                            Team
                             <FormatListBulletedIcon  onClick={handlelist}/>
                         </div>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField value={categoryName} onChange={(event) => setCategoryName(event.target.value)} label="Category Name" variant="outlined" fullWidth />
+                        <TextField value={facultyName} onChange={(event) => setFacultyName(event.target.value)} label="faculty Name" variant="outlined" fullWidth />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField value={collegeName} onChange={(event) => setCollegeName(event.target.value)} label="College Name" variant="outlined" fullWidth />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField value={post} onChange={(event) => setPost(event.target.value)} label="Post" variant="outlined" fullWidth />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField value={description} onChange={(event) => setDescription(event.target.value)} label="Description" variant="outlined" fullWidth />
                     </Grid>
                     <Grid item xs={12} className={classes.rowStyle}>
                         <IconButton color="primary" aria-label="upload picture" component="label">

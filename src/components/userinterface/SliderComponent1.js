@@ -18,6 +18,8 @@ export default function SliderComponent1() {
     speed: 5000,
     autoplaySpeed:3000,
     autoPlay:true,
+    gap:'10vh',
+    
     
     slidesToShow: md_matches?1:sm_matches?1:2,
     slidesToScroll: 1
@@ -25,15 +27,15 @@ export default function SliderComponent1() {
   var data=[{icon:"Bhautikibuilding3.png"},{icon:"bhautiki3.png"},{icon:"Bhautiki2.png"}]
   const showSlider=()=>{
    return data.map((item)=>{
-    return <div><img src={`${ServerURL}/images/${item.icon}`} style={{width:'100%',height:500}}/></div>
+    return <div><img src={`${ServerURL}/images/${item.icon}`} style={{width:'100%',height:450}}/></div>
    })
 
   }
   return (
-    <div style={{width:'100%',marginLeft:'2%'}}>
+    <div style={{width:'100%', justifyContent:"center"}}>
     <Slider {...settings}>
        {showSlider()}
     </Slider>
     </div>
   );
-}
+} 
