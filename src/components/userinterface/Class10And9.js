@@ -6,22 +6,22 @@ import { Divider, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../services/ServerServices";
 
-export default function Class11() {
+export default function Class10And9() {
   const navigate = useNavigate();
 
-  const [examDetailsjeeXI, setExamDetailsjeeXI] = useState([]);
-  const [examDetailsjeeXII, setExamDetailsjeeXII] = useState([]);
-  const [examDetailsjeeDroppers, setExamDetailsjeeDroppers] = useState([]);
+  const [foundationIX, setFoundationIX] = useState([]);
+  const [foundationX, setFoundationX] = useState([]);
+//   const [examDetailsjeeDroppers, setExamDetailsjeeDroppers] = useState([]);
 
   const fetchExamDetails = async () => {
-    const resultXI = await getData("category/fetch_iitjeeexamdetails_XI");
-    const resultXII = await getData("category/fetch_iitjeeexamdetails_XII");
-    const resultDroppers = await getData(
-      "category/fetch_iitjeeexamdetails_droppers"
-    );
-    setExamDetailsjeeXI(resultXI?.data || []);
-    setExamDetailsjeeXII(resultXII?.data || []);
-    setExamDetailsjeeDroppers(resultDroppers?.data || []);
+    const resultIX = await getData("category/fetch_foundationIX ");
+    const resultX = await getData("category/fetch_foundationX");
+    // const resultDroppers = await getData(
+    //   "category/fetch_iitjeeexamdetails_droppers"
+    // );
+    setFoundationIX(resultIX?.data || []);
+    setFoundationX(resultX?.data || []);
+    // setExamDetailsjeeDroppers(resultDroppers?.data || []);
   };
 
   useEffect(() => {
@@ -139,9 +139,9 @@ export default function Class11() {
 
   return (
     <div style={{ fontFamily: "Poppins, sans-serif" }}>
-      <div style={{background: "linear-gradient(135deg, #ff7f50, #ffeaa7)"}}>{renderPrograms(examDetailsjeeXI, "Class XI")}</div>
-      {renderPrograms(examDetailsjeeXII, "Class XII", "#c7ecee")}
-      {renderPrograms(examDetailsjeeDroppers, "Droppers", "#E0E0E0")}
+      <div style={{background: "linear-gradient(135deg, #ff7f50, #ffeaa7)"}}>{renderPrograms(foundationIX, "Class IX")}</div>
+      {renderPrograms(foundationX, "Class X", "#c7ecee")}
+      {/* {renderPrograms(examDetailsjeeDroppers, "Droppers", "#E0E0E0")} */}
     </div>
   );
 }

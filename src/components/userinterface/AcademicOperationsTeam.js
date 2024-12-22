@@ -2,12 +2,12 @@ import { ServerURL } from "../services/ServerServices";
 import { useEffect, useState } from "react";
 import { getData } from "../services/ServerServices";
 import { Zoom } from "react-awesome-reveal"; // For animation effects
-import DamdarTeacher from "./DamdarTeachers";
-export default function IitJeeteam(props) {
+
+export default function AcademicOperationsTeam(props) {
   const [teamList, setTeamList] = useState([]);
 
   const fetchTeam = async () => {
-    const result = await getData("category/fetch_team");
+    const result = await getData("category/fetch_all_academicoperation_team");
     setTeamList(result.data);
   };
 
@@ -106,10 +106,7 @@ export default function IitJeeteam(props) {
   };
 
   return (
-    <div>
-      <DamdarTeacher headingText="Our जोरदार Teachers" />
     <div
-
       style={{
         background: "linear-gradient(135deg, #fff)",
         display: "flex",
@@ -135,9 +132,10 @@ export default function IitJeeteam(props) {
           marginTop: "3%",
           textAlign: "center",
           wordWrap: "break-word",
+          lineHeight: 1.2,
         }}
       >
-        Senior Management Team
+        Academic Operations Team
       </div>
 
       <div
@@ -157,15 +155,15 @@ export default function IitJeeteam(props) {
         {`
           @media screen and (max-width: 768px) {
             .team-heading {
-              font-size: 32px;
-              line-height: 1.4;
+              font-size: 36px;
+              line-height: 1.3;
               text-align: center;
             }
           }
 
           @media screen and (max-width: 480px) {
             .team-heading {
-              font-size: 24px;
+              font-size: 28px;
               line-height: 1.4;
               text-align: center;
             }
@@ -173,9 +171,6 @@ export default function IitJeeteam(props) {
         `}
       </style>
     </div>
-    </div>
   );
 }
-
-
 

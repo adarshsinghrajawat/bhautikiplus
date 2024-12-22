@@ -18,17 +18,17 @@ import { useStyles } from "./MaincategoryCss";
 import { postData, getData } from "../services/ServerServices";
 import { useNavigate } from "react-router-dom";
 
-export default function Team() {
+export default function Result() {
   const navigate = useNavigate();
   const classes = useStyles();
 
   // States
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [facultyName, setFacultyName] = useState("");
-  const [collegeName, setCollegeName] = useState("");
-  const [post, setPost] = useState("");
-  const [description, setDescription] = useState("");
+  const [studentName, setStudentName] = useState("");
+  const [programName, setProgramName] = useState("");
+  const [marks, setMarks] = useState("");
+  const [parentName, setParentName] = useState("");
   const [categoryLogo, setCategoryLogo] = useState({
     fileName: "watermark.png",
     bytes: "",
@@ -83,15 +83,15 @@ export default function Team() {
 
     const formData = new FormData();
     formData.append("departmentname", selectedDepartment);
-    formData.append("facultyname", facultyName);
-    formData.append("collegename", collegeName);
-    formData.append("post", post);
-    formData.append("description", description);
+    formData.append("studentname", studentName);
+    formData.append("programname", programName);
+    formData.append("marks", marks);
+    formData.append("parentname", parentName);
     formData.append("logo", categoryLogo.bytes);
     formData.append("createdat", formattedDate);
     formData.append("updateat", formattedDate);
 
-    const result = await postData("category/submit_team", formData);
+    const result = await postData("category/submit_result", formData);
 
     if (result) {
       Swal.fire({
@@ -110,10 +110,10 @@ export default function Team() {
 
   const clearValues = () => {
     setSelectedDepartment("");
-    setFacultyName("");
-    setCollegeName("");
-    setPost("");
-    setDescription("");
+    setProgramName("");
+    setStudentName("");
+    setMarks("");
+    setParentName("");
     setCategoryLogo({ fileName: "watermark.png", bytes: "" });
   };
 
@@ -135,7 +135,7 @@ export default function Team() {
               <img src={logo1} width="150" alt="Logo" />
             </div>
             <div className={classes.headingStyle}>
-              Team
+              Result
               <FormatListBulletedIcon onClick={handleList} />
             </div>
           </Grid>
@@ -160,36 +160,36 @@ export default function Team() {
           {/* Input Fields */}
           <Grid item xs={12}>
             <TextField
-              value={facultyName}
-              onChange={(event) => setFacultyName(event.target.value)}
-              label="Faculty Name"
+              value={studentName}
+              onChange={(event) => setStudentName(event.target.value)}
+              label="Student Name"
               variant="outlined"
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              value={collegeName}
-              onChange={(event) => setCollegeName(event.target.value)}
-              label="College Name"
+              value={programName}
+              onChange={(event) => setProgramName(event.target.value)}
+              label="Program Name"
               variant="outlined"
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              value={post}
-              onChange={(event) => setPost(event.target.value)}
-              label="Post"
+              value={marks}
+              onChange={(event) => setMarks(event.target.value)}
+              label="Marks"
               variant="outlined"
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-              label="Description"
+              value={parentName}
+              onChange={(event) => setParentName(event.target.value)}
+              label="Parent Name"
               variant="outlined"
               fullWidth
             />

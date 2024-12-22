@@ -6,22 +6,22 @@ import { Divider, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../services/ServerServices";
 
-export default function Class11() {
+export default function Class11Neet() {
   const navigate = useNavigate();
 
-  const [examDetailsjeeXI, setExamDetailsjeeXI] = useState([]);
-  const [examDetailsjeeXII, setExamDetailsjeeXII] = useState([]);
-  const [examDetailsjeeDroppers, setExamDetailsjeeDroppers] = useState([]);
+  const [examDetailsneetXI, setExamDetailsneetXI] = useState([]);
+  const [examDetailsneetXII, setExamDetailsneetXII] = useState([]);
+  const [examDetailsneetDroppers, setExamDetailsneetDroppers] = useState([]);
 
   const fetchExamDetails = async () => {
-    const resultXI = await getData("category/fetch_iitjeeexamdetails_XI");
-    const resultXII = await getData("category/fetch_iitjeeexamdetails_XII");
+    const resultXI = await getData("category/fetch_neetexamdetails_XI");
+    const resultXII = await getData("category/fetch_neetxamdetails_XII");
     const resultDroppers = await getData(
-      "category/fetch_iitjeeexamdetails_droppers"
+      "category/fetch_neetexamdetails_droppers"
     );
-    setExamDetailsjeeXI(resultXI?.data || []);
-    setExamDetailsjeeXII(resultXII?.data || []);
-    setExamDetailsjeeDroppers(resultDroppers?.data || []);
+    setExamDetailsneetXI(resultXI?.data || []);
+    setExamDetailsneetXII(resultXII?.data || []);
+    setExamDetailsneetDroppers(resultDroppers?.data || []);
   };
 
   useEffect(() => {
@@ -139,9 +139,9 @@ export default function Class11() {
 
   return (
     <div style={{ fontFamily: "Poppins, sans-serif" }}>
-      <div style={{background: "linear-gradient(135deg, #ff7f50, #ffeaa7)"}}>{renderPrograms(examDetailsjeeXI, "Class XI")}</div>
-      {renderPrograms(examDetailsjeeXII, "Class XII", "#c7ecee")}
-      {renderPrograms(examDetailsjeeDroppers, "Droppers", "#E0E0E0")}
+      <div style={{background: "linear-gradient(135deg, #ff7f50, #ffeaa7)"}}>{renderPrograms(examDetailsneetXI, "Class XI")}</div>
+      {renderPrograms(examDetailsneetXII, "Class XII", "#c7ecee")}
+      {renderPrograms(examDetailsneetDroppers, "Droppers", "#E0E0E0")}
     </div>
   );
 }

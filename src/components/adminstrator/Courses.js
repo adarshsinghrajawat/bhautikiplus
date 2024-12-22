@@ -18,17 +18,19 @@ import { useStyles } from "./MaincategoryCss";
 import { postData, getData } from "../services/ServerServices";
 import { useNavigate } from "react-router-dom";
 
-export default function Team() {
+export default function Courses() {
   const navigate = useNavigate();
   const classes = useStyles();
 
   // States
   const [departments, setDepartments] = useState([]);
+  const [batch, setBatch] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const [facultyName, setFacultyName] = useState("");
-  const [collegeName, setCollegeName] = useState("");
-  const [post, setPost] = useState("");
-  const [description, setDescription] = useState("");
+  const [selectedBatch, setSelectedBatch] = useState("");
+  const [programNames, setProgramNames] = useState("");
+  const [joining, setJoining] = useState("");
+  const [duration, setDuration] = useState("");
+  const [examDate, setExamDate] = useState("");
   const [categoryLogo, setCategoryLogo] = useState({
     fileName: "watermark.png",
     bytes: "",
@@ -48,6 +50,24 @@ export default function Team() {
     }
   };
 
+
+  const fetchAllBatches = async () => {
+    try {
+      const result = await getData("category/fetch_all_batches");
+      if (result && result.data) {
+        setBatch(result.data);
+      } else {
+        console.error("Failed to fetch departments:", result);
+      }
+    } catch (error) {
+      console.error("Error fetching departments:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllBatches();
+  }, []);
+
   useEffect(() => {
     fetchAllDepartments();
   }, []);
@@ -56,10 +76,22 @@ export default function Team() {
   const handleDepartmentChange = (event) => {
     setSelectedDepartment(event.target.value);
   };
+
+  const handleBatchChange = (event) => {
+    setSelectedBatch(event.target.value);
+  };
   const fillDepartments = () => {
     return departments.map((item) => (
       <MenuItem key={item.departmentid} value={item.departmentsid}>
         {item.departmentname}
+      </MenuItem>
+    ));
+  };
+
+  const fillBatches = () => {
+    return batch.map((item) => (
+      <MenuItem key={item.batchesid} value={item.batchesid}>
+        {item.batchesname}
       </MenuItem>
     ));
   };
@@ -83,15 +115,17 @@ export default function Team() {
 
     const formData = new FormData();
     formData.append("departmentname", selectedDepartment);
-    formData.append("facultyname", facultyName);
-    formData.append("collegename", collegeName);
-    formData.append("post", post);
-    formData.append("description", description);
+    formData.append("batch", selectedBatch);
+    formData.append("programnames", programNames);
+    formData.append("joining", joining);
+    formData.append("duration", duration);
+    formData.append("examdate", examDate);
+     
     formData.append("logo", categoryLogo.bytes);
     formData.append("createdat", formattedDate);
     formData.append("updateat", formattedDate);
 
-    const result = await postData("category/submit_team", formData);
+    const result = await postData("category/submit_examdetails", formData);
 
     if (result) {
       Swal.fire({
@@ -110,10 +144,12 @@ export default function Team() {
 
   const clearValues = () => {
     setSelectedDepartment("");
-    setFacultyName("");
-    setCollegeName("");
-    setPost("");
-    setDescription("");
+    setSelectedBatch("");
+    setProgramNames("");
+    setJoining("");
+    setDuration("")
+    setExamDate("");
+    // setDescription("");
     setCategoryLogo({ fileName: "watermark.png", bytes: "" });
   };
 
@@ -135,13 +171,13 @@ export default function Team() {
               <img src={logo1} width="150" alt="Logo" />
             </div>
             <div className={classes.headingStyle}>
-              Team
+              Exam Details
               <FormatListBulletedIcon onClick={handleList} />
             </div>
           </Grid>
 
           {/* Department Dropdown */}
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Departments</InputLabel>
               <Select
@@ -151,8 +187,24 @@ export default function Team() {
                 label="Departments"
                 onChange={handleDepartmentChange}
               >
-                <MenuItem value="">Select Department</MenuItem>
+                <MenuItem value="">Departments</MenuItem>
                 {fillDepartments()}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Batch</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={selectedBatch}
+                label="Batch"
+                onChange={handleBatchChange}
+              >
+                <MenuItem value="">Select Batch</MenuItem>
+                {fillBatches()}
               </Select>
             </FormControl>
           </Grid>
@@ -160,36 +212,36 @@ export default function Team() {
           {/* Input Fields */}
           <Grid item xs={12}>
             <TextField
-              value={facultyName}
-              onChange={(event) => setFacultyName(event.target.value)}
-              label="Faculty Name"
+              value={programNames}
+              onChange={(event) => setProgramNames(event.target.value)}
+              label="Program Name"
               variant="outlined"
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              value={collegeName}
-              onChange={(event) => setCollegeName(event.target.value)}
-              label="College Name"
+              value={joining}
+              onChange={(event) => setJoining(event.target.value)}
+              label="Who Should Join"
               variant="outlined"
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              value={post}
-              onChange={(event) => setPost(event.target.value)}
-              label="Post"
+              value={duration}
+              onChange={(event) => setDuration(event.target.value)}
+              label="Duration"
               variant="outlined"
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
-              label="Description"
+              value={examDate}
+              onChange={(event) => setExamDate(event.target.value)}
+              label="Exam Date"
               variant="outlined"
               fullWidth
             />
