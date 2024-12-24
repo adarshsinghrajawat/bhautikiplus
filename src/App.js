@@ -12,7 +12,7 @@ import Home from "./components/Screens/Home";
 import Programs from "./components/userinterface/Programs";
 import Team from "./components/adminstrator/Team";
 import DisplayAllTeam from "./components/adminstrator/DisplayAllTeam";
-import Dashboard from "./components/adminstrator/AdminDashboard"
+// import Dashboard from "./components/adminstrator/AdminDashboard"
 import AdminDashboard from "./components/adminstrator/AdminDashboard";
 import RegisterNow from "./components/userinterface/RegisterNow";
 import SubSubcategoryComponent from "./components/userinterface/SubSubcategoryComponent";
@@ -30,6 +30,8 @@ import GalleryComponent from "./components/Screens/GalleryComponent";
 import NeetResult from "./components/Screens/NeetResult";
 import IITResult from "./components/Screens/IITResult";
 import GoogleMap from "./components/Screens/GoogleMap";
+// import MiniDrawer from "./components/adminstrator/Dashboard";
+
 function App() {
   return (
     <div>
@@ -56,7 +58,7 @@ function App() {
       <Route element={<Home/>} path={"/home"} />
       <Route element={<MainCategory/>} path={"/maincategory"} />
       <Route element={<TeamHome/>} path={"/teamhome"} />
-      <Route element={<MainCategory/>} path={"/maincategory"} />
+      {/* <Route element={<MainCategory/>} path={"/maincategory"} /> */}
       <Route element={<DisplayAllMainCategory/>} path={"/displayallmaincategory"} />
       <Route element={<Programs/>}  path={"/programs"}/>
       <Route element={<Team/>}  path={"/team"}/>
@@ -76,6 +78,9 @@ function App() {
     <Route element={<IITResult/>} path={'/iitresult'}/>
     <Route element={<GoogleMap/>} path={'/googlemap'}/>
     <Route element={<GalleryComponent/>} path={'/gallerycomponent'}/>
+    {/* <Route element={<MiniDrawer/>} path={'/minidrawer/*'}/> */}
+     
+
       
     </Routes>
     </Router>

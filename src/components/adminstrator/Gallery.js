@@ -357,7 +357,7 @@ export default function Gallery(props) {
     <div style={{  display:'flex',
         justifyContent:'center',
         alignItems:'center',
-        background:'#fd79a8',
+        // background:'#fd79a8',
         height:'100vh',}}>
       <div>{Gallery()}</div>
     </div>

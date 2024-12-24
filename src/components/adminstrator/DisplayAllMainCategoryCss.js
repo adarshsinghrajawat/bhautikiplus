@@ -5,9 +5,9 @@ export const useStyles = makeStyles(() => ({
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
-        background:'#dfe6e9',
+       // background:'#dfe6e9',
         height:'100vh',
-        width:'100vw',
+        width:'70vw',
     
     },
     
